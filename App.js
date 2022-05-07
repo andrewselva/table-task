@@ -52,44 +52,42 @@ function App() {
         return <div>Loading...</div>;
     } else {
         return (
-            <ul>
-                {tableValue.map((value, i) => (
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Avatar</th>
-                      </tr>
-                    </thead>
-                    <tbody key={value.id}>
-                      <tr>
-                        <th scope="row">{i + 1}</th>
-                        <td>{isEdit && (i === editIndex) ?(<input
-                            value={value.email}
-                            name="email"
-                            onChange={handleInputChange(i, 'email')}
-                          />):(<span>{value.email}</span>)}</td>
-                        <td>{isEdit && (i === editIndex) ?(<input
-                            value={value.first_name}
-                            name="first_name"
-                            onChange={handleInputChange(i, 'first_name')}
-                          />):(<span>{value.first_name}</span>)}</td>
-                        <td>{isEdit && (i === editIndex) ?(<input
-                            value={value.last_name}
-                            name="last_name"
-                            onChange={handleInputChange(i, 'last_name')}
-                          />):(<span>{value.last_name}</span>)}</td>
-                        <td><img src={value.avatar} alt={value.id}></img></td>
-                        <td><button type="button" onClick={() => editFunct(i)} class="btn btn-primary">{isEdit && (i === editIndex)?"Save":"Edit"}</button></td>
-                        <td><button type="button" onClick={() => deleteFunct(i)} class="btn btn-danger">Delete</button></td>
-                      </tr>
-                    </tbody>
-                </table>
-                ))}
-            </ul>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Avatar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {tableValue.map((value, i) => (
+                    <tr key={value.id}>
+                      <th scope="row">{i + 1}</th>
+                      <td>{isEdit && (i === editIndex) ?(<input
+                          value={value.email}
+                          name="email"
+                          onChange={handleInputChange(i, 'email')}
+                        />):(<span>{value.email}</span>)}</td>
+                      <td>{isEdit && (i === editIndex) ?(<input
+                          value={value.first_name}
+                          name="first_name"
+                          onChange={handleInputChange(i, 'first_name')}
+                        />):(<span>{value.first_name}</span>)}</td>
+                      <td>{isEdit && (i === editIndex) ?(<input
+                          value={value.last_name}
+                          name="last_name"
+                          onChange={handleInputChange(i, 'last_name')}
+                        />):(<span>{value.last_name}</span>)}</td>
+                      <td><img src={value.avatar} alt={value.id}></img></td>
+                      <td><button type="button" onClick={() => editFunct(i)} class="btn btn-primary">{isEdit && (i === editIndex)?"Save":"Edit"}</button></td>
+                      <td><button type="button" onClick={() => deleteFunct(i)} class="btn btn-danger">Delete</button></td>
+                    </tr>
+                    ))}
+                  </tbody>
+              </table>
         );
     }
 }
