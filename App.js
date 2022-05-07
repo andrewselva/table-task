@@ -6,18 +6,21 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [tableValue, setTableValue] = useState([]);
   const [isEdit, setEdit] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const handleInputChange = (index, key) => e => {
     let newArr = [...tableValue]; 
     newArr[index][key] = e.target.value; 
     setTableValue(newArr);
   };  
-  const editFunct= () =>{
+  const editFunct= (index) =>{
     setEdit(!isEdit);
+    setEditIndex(index);
     if(isEdit){
+      setEditIndex(null);
       localStorage.setItem('items', JSON.stringify(tableValue));
     }
   }
-  const deleteFunct= (e, index) =>{
+  const deleteFunct= (index) =>{
     const filtTableValue = tableValue.filter((val, ind)=> ind !== index);
     setTableValue(filtTableValue);
     localStorage.setItem('items', JSON.stringify(filtTableValue));
@@ -64,24 +67,24 @@ function App() {
                     <tbody key={value.id}>
                       <tr>
                         <th scope="row">{i + 1}</th>
-                        <td>{isEdit ?(<input
+                        <td>{isEdit && (i === editIndex) ?(<input
                             value={value.email}
                             name="email"
                             onChange={handleInputChange(i, 'email')}
                           />):(<span>{value.email}</span>)}</td>
-                        <td>{isEdit ?(<input
+                        <td>{isEdit && (i === editIndex) ?(<input
                             value={value.first_name}
                             name="first_name"
                             onChange={handleInputChange(i, 'first_name')}
                           />):(<span>{value.first_name}</span>)}</td>
-                        <td>{isEdit ?(<input
+                        <td>{isEdit && (i === editIndex) ?(<input
                             value={value.last_name}
                             name="last_name"
                             onChange={handleInputChange(i, 'last_name')}
                           />):(<span>{value.last_name}</span>)}</td>
                         <td><img src={value.avatar} alt={value.id}></img></td>
-                        <td><button type="button" onClick={editFunct} class="btn btn-primary">{isEdit?"Save":"Edit"}</button></td>
-                        <td><button type="button" onClick={(e) => deleteFunct(e, i)} class="btn btn-danger">Delete</button></td>
+                        <td><button type="button" onClick={() => editFunct(i)} class="btn btn-primary">{isEdit && (i === editIndex)?"Save":"Edit"}</button></td>
+                        <td><button type="button" onClick={() => deleteFunct(i)} class="btn btn-danger">Delete</button></td>
                       </tr>
                     </tbody>
                 </table>
