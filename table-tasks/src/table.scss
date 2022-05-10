@@ -1,0 +1,14 @@
+$cellWidth: 16%;
+$inputWidth: 100%;
+.cellSize{
+    th, td{
+        width: $cellWidth;
+    }
+}
+tr{
+    td{
+        input{
+            width: $inputWidth;
+           }
+    }
+}
